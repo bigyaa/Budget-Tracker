@@ -4,7 +4,7 @@ const TransactionManager = ({
   category,
   transactions,
   setTransactions,
-}: any) => {
+}: { category: string; transactions: { description: string; amount: number }[]; setTransactions: (transactions: { description: string; amount: number }[]) => void }) => {
   const [newTransaction, setNewTransaction] = useState({
     description: "",
     amount: "",
@@ -46,7 +46,7 @@ const TransactionManager = ({
 
   // Delete a transaction
   const handleDelete = (index: number) => {
-    const updatedTransactions = transactions.filter((_, i) => i !== index);
+    const updatedTransactions = transactions.filter((_, i: number) => i !== index);
     setTransactions(updatedTransactions);
   };
 
@@ -130,7 +130,7 @@ const TransactionManager = ({
             </tr>
           </thead>
           <tbody>
-            {transactions.map((transaction, index) => (
+            {transactions.map((transaction: { description: string; amount: number }, index: number) => (
               <tr key={index}>
                 <td className="border border-gray-300 p-2">
                   {transaction.description}

@@ -1,9 +1,11 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
-import ManageIncome from "./components/ManageIncome";
-import ManageExpense from "./components/ManageExpense";
-import ManageSavings from "./components/ManageSavings";
+import React from "react";
+// Lazy loading is a technique that delays the loading of resources until they are needed.
+const Dashboard = React.lazy(() => import("./components/Dashboard"));
+const ManageIncome = React.lazy(() => import("./components/ManageIncome"));
+const ManageExpense = React.lazy(() => import("./components/ManageExpense"));
+const ManageSavings = React.lazy(() => import("./components/ManageSavings"));
 
 function App() {
   return (
