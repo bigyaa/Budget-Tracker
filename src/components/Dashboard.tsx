@@ -5,6 +5,7 @@ import CashFlowTable from "./widgets/CashFlowTable";
 import IncomeGoalProgress from "./widgets/IncomeGoalProgress";
 import PercentageBreakdownTable from "./widgets/PercentageBreakdownTable";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebaseConfig";
 
 const Dashboard = () => {
   const [data, setData] = useState<any>(null);
@@ -18,7 +19,10 @@ const Dashboard = () => {
     };
     fetchData();
   }, []);
-
+  const handleLogout = async () => {
+    await auth.signOut();
+    navigate("/login");
+  };
   if (!data) return <div>Loading...</div>;
 
   return (
@@ -27,7 +31,15 @@ const Dashboard = () => {
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold text-gray-800">Annual Overview</h1>
       </div>
-
+      <div className="flex justify-between items-center">
+        <h1 className="text-4xl font-bold text-gray-800">Dashboard</h1>
+        <button
+          className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+      </div>
       {/* Category Management Buttons */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
         <button
