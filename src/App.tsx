@@ -19,15 +19,28 @@ function App() {
     });
   }, []);
 
-   return (
+  return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-
-      <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
-      <Route path="/" element={<Navigate to="/dashboard" />} />      <Route path="/manage-income" element={<ManageIncome />} />
-      <Route path="/manage-expenses" element={<ManageExpense />} />
-      <Route path="/manage-savings" element={<ManageSavings />} />{" "}
+      <Route
+        path="/dashboard"
+        element={user ? <Dashboard /> : <Navigate to="/login" />}
+      />
+      <Route path="/" element={<Navigate to="/dashboard" />} />{" "}
+      <Route path="/manage-income" element={<ManageIncome />} />
+      <Route
+        path="/manage-expenses"
+        element={user ? <ManageExpense /> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/manage-savings"
+        element={user ? <ManageSavings /> : <Navigate to="/login" />}
+      />{" "}
+      <Route
+        path="/manage-income"
+        element={user ? <ManageIncome /> : <Navigate to="/login" />}
+      />{" "}
     </Routes>
   );
 }
