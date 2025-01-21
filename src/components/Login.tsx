@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 
@@ -9,11 +9,24 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // Google Authentication
+  const googleProvider = new GoogleAuthProvider();
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      navigate("/dashboard");
+    } catch (err) {
+      setError("Google sign-in failed. Please try again.");
+    }
+  };
+
+  // Email/Password Login
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard"); // Redirect to dashboard after login
+      navigate("/dashboard");
     } catch (err) {
       setError("Invalid email or password. Please try again.");
     }
@@ -41,13 +54,26 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
-          >
+          <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
             Login
           </button>
         </form>
+
+        <div className="text-center mt-4">
+          <button
+            onClick={handleGoogleSignIn}
+            className="w-full bg-red-600 text-white p-2 rounded hover:bg-red-700"
+          >
+            Sign in with Google
+          </button>
+        </div>
+
+        <p className="text-center mt-4">
+          <button className="text-blue-600 underline" onClick={() => navigate("/forgot-password")}>
+            Forgot Password?
+          </button>
+        </p>
+
         <p className="text-center mt-4">
           Don't have an account?{" "}
           <button className="text-blue-600 underline" onClick={() => navigate("/register")}>
