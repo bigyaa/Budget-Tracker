@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { auth } from "./firebaseConfig";
+import { auth } from "./firebase-config";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ForgotPassword from "./components/ForgotPassword";

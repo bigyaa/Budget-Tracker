@@ -5,7 +5,7 @@ import CashFlowTable from "./widgets/CashFlowTable";
 import IncomeGoalProgress from "./widgets/IncomeGoalProgress";
 import PercentageBreakdownTable from "./widgets/PercentageBreakdownTable";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebaseConfig";
+import { auth } from "../firebase-config";
 
 const Dashboard = () => {
   const [data, setData] = useState<any>(null);
