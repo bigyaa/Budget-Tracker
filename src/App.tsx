@@ -5,6 +5,7 @@ import { auth } from "./firebase-config";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ForgotPassword from "./components/ForgotPassword";
+import { onAuthStateChanged } from "@firebase/auth";
 // Lazy loading is a technique that delays the loading of resources until they are needed.
 const Dashboard = React.lazy(() => import("./components/Dashboard"));
 const ManageIncome = React.lazy(() => import("./components/ManageIncome"));
@@ -13,19 +14,29 @@ const ManageSavings = React.lazy(() => import("./components/ManageSavings"));
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    auth.onAuthStateChanged((authUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
       setUser(authUser);
+      setLoading(false);
     });
+
+    return () => unsubscribe(); // Cleanup on unmount
   }, []);
+
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
 
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-
       <Route
         path="/dashboard"
         element={user ? <Dashboard /> : <Navigate to="/login" />}
