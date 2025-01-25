@@ -26,3 +26,8 @@ dist-ssr
 firebaseConfig.ts
 *Config.ts
 *config.ts
+*config
+
+.env
+*env
+*package-lock.json
