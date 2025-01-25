@@ -1,5 +1,5 @@
-import Transaction from "../models/Transaction";
-import redis from "../config/redis";
+import redis from '../config/redis';
+import Transaction from '../models/Transaction';
 
 const resolvers = {
   Query: {

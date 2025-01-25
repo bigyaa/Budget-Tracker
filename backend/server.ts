@@ -1,10 +1,11 @@
-import express from "express";
-import { ApolloServer } from "apollo-server-express";
-import typeDefs from "./graphql/schema";
-import resolvers from "./graphql/resolvers";
-import connectDB from "./config/db";
-import admin from "./config/firebaseAdmin";
-import dotenv from "dotenv";
+import { ApolloServer } from 'apollo-server-express';
+import dotenv from 'dotenv';
+import express from 'express';
+
+import connectDB from './config/db';
+import admin from './config/firebaseAdmin';
+import resolvers from './graphql/resolvers';
+import typeDefs from './graphql/schema';
 
 dotenv.config();
 connectDB();
