@@ -1,11 +1,15 @@
-import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { auth } from "./firebase-config";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import ForgotPassword from "./components/ForgotPassword";
-import { onAuthStateChanged } from "@firebase/auth";
+import './App.css';
+
+import React, { useEffect, useState } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+
+import { onAuthStateChanged } from '@firebase/auth';
+
+import ForgotPassword from './components/ForgotPassword';
+import Login from './components/Login';
+import Register from './components/Register';
+import { auth } from './firebase-config';
+
 // Lazy loading is a technique that delays the loading of resources until they are needed.
 const Dashboard = React.lazy(() => import("./components/Dashboard"));
 const ManageIncome = React.lazy(() => import("./components/ManageIncome"));

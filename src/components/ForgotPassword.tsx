@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../firebase-config";
-import { useNavigate } from "react-router-dom";
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { auth } from '../firebase-config';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

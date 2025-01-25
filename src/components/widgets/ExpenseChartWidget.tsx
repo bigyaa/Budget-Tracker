@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell } from "recharts";
+import { Cell, Pie, PieChart } from 'recharts';
 
 const data = [
   { name: "Rent", value: 1000 },

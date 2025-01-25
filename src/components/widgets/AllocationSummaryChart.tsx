@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { Cell, Legend, Pie, PieChart, Tooltip } from 'recharts';
 
 const COLORS = ["#E07A5F", "#6A994E", "#F2CC8F"];
 

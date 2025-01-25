@@ -1,5 +1,6 @@
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+import 'react-circular-progressbar/dist/styles.css';
+
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
 const IncomeGoalProgress = ({ data }: { data: { achieved: number; goal: number; percentage: number } }) => {
   return (

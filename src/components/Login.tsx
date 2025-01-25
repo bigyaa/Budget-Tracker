@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { auth } from "../firebase-config";
-import { useNavigate } from "react-router-dom";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { auth } from '../firebase-config';
 
 const Login = () => {
   const [email, setEmail] = useState("");

@@ -1,5 +1,6 @@
-import TransactionManager from "./TransactionManager";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from 'react';
+
+import TransactionManager from './TransactionManager';
 
 const ManageExpense = () => {
   const [expenseTransactions, setExpenseTransactions] = useState<any[]>([]);
