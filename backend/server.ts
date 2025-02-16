@@ -23,7 +23,7 @@ const server = new ApolloServer({
       const decodedToken = await admin.auth().verifyIdToken(token);
       return { userId: decodedToken.uid };
     } catch (error) {
-      throw new Error("Unauthorized");
+      throw new Error("Unauthorized", error);
     }
   },
 });
