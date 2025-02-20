@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import { queryClient } from "./lib/react-query";
-import { store } from "./store";
+import store from "./store/index";
 import { ApolloProvider } from "@apollo/client";
 import client from "./graphql/apolloClient";
 
