@@ -1,8 +1,13 @@
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { auth } from '../firebase-config';
+import { auth } from "../firebase-config";
+import React from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +23,7 @@ const Login = () => {
       await signInWithPopup(auth, googleProvider);
       navigate("/dashboard");
     } catch (err) {
-      setError("Google sign-in failed. Please try again.");
+      setError("Google sign-in failed. Please try again.", err);
     }
   };
 
@@ -55,7 +60,10 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+          >
             Login
           </button>
         </form>
@@ -70,14 +78,20 @@ const Login = () => {
         </div>
 
         <p className="text-center mt-4">
-          <button className="text-blue-600 underline" onClick={() => navigate("/forgot-password")}>
+          <button
+            className="text-blue-600 underline"
+            onClick={() => navigate("/forgot-password")}
+          >
             Forgot Password?
           </button>
         </p>
 
         <p className="text-center mt-4">
           Don't have an account?{" "}
-          <button className="text-blue-600 underline" onClick={() => navigate("/register")}>
+          <button
+            className="text-blue-600 underline"
+            onClick={() => navigate("/register")}
+          >
             Register
           </button>
         </p>

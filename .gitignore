@@ -31,3 +31,6 @@ firebaseConfig.ts
 .env
 *env
 *package-lock.json
+node_modules/
+dist/
+logs/
