@@ -1,13 +1,8 @@
-import {
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { auth } from "../firebase-config";
-import React from "react";
+import { auth } from '../firebase-config';
 
 const Login = () => {
   const [email, setEmail] = useState("");

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { auth } from '../firebase-config';
@@ -7,7 +7,6 @@ import CashFlowTable from './widgets/CashFlowTable';
 import EndBalanceChart from './widgets/EndBalanceChart';
 import IncomeGoalProgress from './widgets/IncomeGoalProgress';
 import PercentageBreakdownTable from './widgets/PercentageBreakdownTable';
-import React from 'react';
 
 const Dashboard = () => {
   const [data, setData] = useState<any>(null);

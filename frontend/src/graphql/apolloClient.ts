@@ -1,6 +1,7 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-import { auth } from "../firebase-config";
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
+import { auth } from '../firebase-config';
 
 const httpLink = createHttpLink({
   uri: "http://localhost:5000/graphql",

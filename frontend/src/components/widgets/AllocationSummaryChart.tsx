@@ -1,3 +1,4 @@
+import React from 'react';
 import { Cell, Legend, Pie, PieChart, Tooltip } from 'recharts';
 
 const COLORS = ["#E07A5F", "#6A994E", "#F2CC8F"];

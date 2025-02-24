@@ -1,6 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
-import transactionReducer from "./reducers/transactionSlice";
-import userReducer from "./reducers/userSlice";
+import { configureStore } from '@reduxjs/toolkit';
+
+import transactionReducer from './reducers/transactionSlice';
+import userReducer from './reducers/userSlice';
 
 const store = configureStore({
   reducer: {

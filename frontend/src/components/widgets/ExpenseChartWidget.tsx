@@ -1,3 +1,4 @@
+import React from 'react';
 import { Cell, Pie, PieChart } from 'recharts';
 
 const data = [

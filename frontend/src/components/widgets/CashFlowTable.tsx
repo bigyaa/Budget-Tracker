@@ -1,3 +1,4 @@
+import React from 'react';
 const CashFlowTable = ({ data }: { data: { category: string; total: number; monthly: number[] }[] }) => {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   

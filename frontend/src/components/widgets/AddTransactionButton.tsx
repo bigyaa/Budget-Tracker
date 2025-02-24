@@ -1,3 +1,4 @@
+import React from 'react';
 const AddTransactionButton = () => {
     return (
       <button className="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-full shadow-lg">

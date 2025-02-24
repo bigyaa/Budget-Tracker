@@ -1,3 +1,4 @@
+import React from 'react';
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const EndBalanceChart = ({
