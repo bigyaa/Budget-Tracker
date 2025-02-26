@@ -34,3 +34,4 @@ firebaseConfig.ts
 node_modules/
 dist/
 logs/
+.trunk
