@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import TransactionManager from './TransactionManager';
+import TransactionManager from "./TransactionManager";
+import React from "react";
 
 const ManageExpense = () => {
   const [expenseTransactions, setExpenseTransactions] = useState<any[]>([]);
@@ -11,7 +12,13 @@ const ManageExpense = () => {
       .then((data) => setExpenseTransactions(data.expenseTransactions));
   }, []);
 
-  return <TransactionManager category="Expense" transactions={expenseTransactions} setTransactions={setExpenseTransactions} />;
+  return (
+    <TransactionManager
+      category="Expense"
+      transactions={expenseTransactions}
+      setTransactions={setExpenseTransactions}
+    />
+  );
 };
 
 export default ManageExpense;
