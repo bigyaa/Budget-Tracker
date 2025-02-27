@@ -1,24 +1,41 @@
 import './App.css';
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { onAuthStateChanged } from '@firebase/auth';
+import { onAuthStateChanged, User } from '@firebase/auth';
 
 import ForgotPassword from './components/ForgotPassword';
 import Login from './components/Login';
 import Register from './components/Register';
 import { auth } from './firebase-config';
 
-// Lazy loading is a technique that delays the loading of resources until they are needed.
+// Lazy loading components
 const Dashboard = React.lazy(() => import("./components/Dashboard"));
 const ManageIncome = React.lazy(() => import("./components/ManageIncome"));
 const ManageExpense = React.lazy(() => import("./components/ManageExpense"));
 const ManageSavings = React.lazy(() => import("./components/ManageSavings"));
 
+// Loading spinner component
+const LoadingSpinner = () => (
+  <div className="flex justify-center items-center h-screen">
+    Loading...
+  </div>
+);
+
+// Protected route component
+interface ProtectedRouteProps {
+  element: React.ReactNode;
+  user: User | null;
+}
+
+const ProtectedRoute = ({ element, user }: ProtectedRouteProps) => {
+  return user ? element : <Navigate to="/login" />;
+};
+
 function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authUser) => {
@@ -29,37 +46,28 @@ function App() {
     return () => unsubscribe(); // Cleanup on unmount
   }, []);
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center h-screen">
-        Loading...
-      </div>
-    );
+  if (loading) return <LoadingSpinner />;
 
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route
-        path="/dashboard"
-        element={user ? <Dashboard /> : <Navigate to="/login" />}
-      />
-      <Route path="/" element={<Navigate to="/dashboard" />} />{" "}
-      <Route path="/manage-income" element={<ManageIncome />} />
-      <Route
-        path="/manage-expenses"
-        element={user ? <ManageExpense /> : <Navigate to="/login" />}
-      />
-      <Route
-        path="/manage-savings"
-        element={user ? <ManageSavings /> : <Navigate to="/login" />}
-      />{" "}
-      <Route
-        path="/manage-income"
-        element={user ? <ManageIncome /> : <Navigate to="/login" />}
-      />{" "}
-    </Routes>
+    <Suspense fallback={<LoadingSpinner />}>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        
+        {/* Protected Routes */}
+        <Route path="/dashboard" element={<ProtectedRoute user={user} element={<Dashboard />} />} />
+        <Route path="/manage-income" element={<ProtectedRoute user={user} element={<ManageIncome />} />} />
+        <Route path="/manage-expenses" element={<ProtectedRoute user={user} element={<ManageExpense />} />} />
+        <Route path="/manage-savings" element={<ProtectedRoute user={user} element={<ManageSavings />} />} />
+        
+        {/* Default route */}
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+        
+        {/* Catch-all route */}
+        <Route path="*" element={<Navigate to="/dashboard" />} />
+      </Routes>
+    </Suspense>
   );
 }
 

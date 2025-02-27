@@ -1,20 +1,24 @@
-import './index.css';
+import "./index.css";
 
-import * as React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { StrictMode } from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { ApolloProvider } from "@apollo/client";
+import { QueryClientProvider } from "@tanstack/react-query";
 
-import { ApolloProvider } from '@apollo/client';
-import { QueryClientProvider } from '@tanstack/react-query';
+import App from "./App";
+import client from "./graphql/apolloClient";
+import { queryClient } from "./lib/react-query";
+import store from "./store/index";
+import React from "react";
 
-import App from './App';
-import client from './graphql/apolloClient';
-import { queryClient } from './lib/react-query';
-import store from './store/index';
+// Group root element access to avoid potential null issues
+const rootElement = document.getElementById("root");
+if (!rootElement) throw new Error("Root element not found");
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+ReactDOM.createRoot(rootElement).render(
+  <StrictMode>
     <ApolloProvider client={client}>
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
@@ -24,5 +28,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </Provider>
       </QueryClientProvider>
     </ApolloProvider>
-  </React.StrictMode>
+  </StrictMode>
 );
