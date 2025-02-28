@@ -1,7 +1,7 @@
 {
   "name": "budget-tracker-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,13 +17,13 @@
     "axios": "^1.7.9",
     "firebase": "^11.2.0",
     "graphql": "^16.10.0",
-    "react": "^19.0.0",
+    "react": "^18.2.0",
     "react-circular-progressbar": "^2.1.0",
-    "react-dom": "^19.0.0",
+    "react-dom": "^18.3.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.14.1",
     "recharts": "^2.15.0",
-    "typescript": "~5.6.2"
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -45,7 +45,8 @@
     "postcss": "^8.5.3",
     "prettier": "^3.4.2",
     "tailwindcss": "^4.0.9",
-    "typescript-eslint": "^8.18.2",
+    "@typescript-eslint/eslint-plugin": "^8.18.2",
+    "@typescript-eslint/parser": "^8.18.2",
     "vite": "^6.0.5"
   }
 }
