@@ -1,5 +1,3 @@
-import './App.css';
-
 import React, { Suspense, useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 

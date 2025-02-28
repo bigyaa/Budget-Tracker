@@ -1,3 +1,4 @@
+// tsconfig.app.json is a TypeScript configuration file that is used to configure the TypeScript compiler for the frontend application. This file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application.
 {
   "compilerOptions": {
     "tsBuildInfoFile": "./.cache/tsconfig.app.tsbuildinfo",
@@ -24,5 +25,5 @@
     "noUncheckedSideEffectImports": true,
     "noUnusedParameters": true
   },
-  "include": ["frontend/src"]
+  "include": ["frontend/**/*.{js,ts,jsx,tsx}"],
 }
