@@ -1,4 +1,3 @@
-// tsconfig.app.json is a TypeScript configuration file that is used to configure the TypeScript compiler for the frontend application. This file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application. The tsconfig.app.json file is used to configure the TypeScript compiler options for the frontend application.
 {
   "compilerOptions": {
     "tsBuildInfoFile": "./.cache/tsconfig.app.tsbuildinfo",
@@ -9,21 +8,21 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    // Using 'bundler' for module resolution to support modern bundlers like Webpack or Rollup
-    // Allow importing TypeScript file extensions to support bundler mode and ensure compatibility with various module systems
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
 
-    // Forced module detection is necessary to ensure that all files are treated as modules,
-    // which helps in avoiding issues with non-module files being included in the compilation.
+    /* Module detection */
     "moduleDetection": "force",
     "noEmit": true,
 
+    /* JSX support */
+    "jsx": "react-jsx", // Add this line to enable JSX support
+
     /* Linting */
     "noFallthroughCasesInSwitch": true,
-    // Prevents imports with potential side effects that are not explicitly checked
     "noUncheckedSideEffectImports": true,
     "noUnusedParameters": true
   },
-  "include": ["frontend/**/*.{js,ts,jsx,tsx}"],
+  "include": ["src/**/*"], // Include all files in the src directory
+  "exclude": ["node_modules", "dist"] // Exclude common directories
 }

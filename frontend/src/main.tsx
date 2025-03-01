@@ -1,5 +1,3 @@
-import "./index.css";
-
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -11,7 +9,7 @@ import App from "./App";
 import client from "./graphql/apolloClient";
 import { queryClient } from "./lib/react-query";
 import store from "./store/index";
-import React from "react";
+import "./index.css";
 
 // Group root element access to avoid potential null issues
 const rootElement = document.getElementById("root");
