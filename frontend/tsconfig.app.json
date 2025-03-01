@@ -16,7 +16,8 @@
     "noEmit": true,
 
     /* JSX support */
-    "jsx": "react-jsx", // Add this line to enable JSX support
+    "jsx": "react-jsx", // Enable JSX support
+    "jsxImportSource": "react", // Set React as the JSX factory
 
     /* Linting */
     "noFallthroughCasesInSwitch": true,

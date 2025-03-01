@@ -108,15 +108,29 @@ const Dashboard: React.FC = () => {
             color: "green",
           },
           { label: "Manage Savings", path: "/manage-savings", color: "yellow" },
-        ].map((button) => (
-          <button
-            key={button.path}
-            className={`bg-${button.color}-600 text-white px-6 py-4 rounded-lg hover:bg-${button.color}-700 text-lg transition-colors`}
-            onClick={handleNavigation(button.path)}
-          >
-            {button.label}
-          </button>
-        ))}
+        ].map((btn) => {
+          const baseClasses =
+            "text-white px-6 py-4 rounded-lg text-lg transition-colors";
+          let buttonClass = "";
+
+          if (btn.color === "blue") {
+            buttonClass = `bg-blue-600 hover:bg-blue-700 ${baseClasses}`;
+          } else if (btn.color === "green") {
+            buttonClass = `bg-green-600 hover:bg-green-700 ${baseClasses}`;
+          } else if (btn.color === "yellow") {
+            buttonClass = `bg-yellow-600 hover:bg-yellow-700 ${baseClasses}`;
+          }
+
+          return (
+            <button
+              key={btn.path}
+              className={buttonClass}
+              onClick={handleNavigation(btn.path)}
+            >
+              {btn.label}
+            </button>
+          );
+        })}
       </div>
 
       {/* Summary Widgets */}
