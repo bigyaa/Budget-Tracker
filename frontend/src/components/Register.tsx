@@ -1,8 +1,8 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { auth } from '../firebase-config';
+import { auth } from "../firebase-config";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -51,7 +51,10 @@ const Register = () => {
         </form>
         <p className="text-center mt-4">
           Already have an account?{" "}
-          <button className="text-blue-600 underline" onClick={() => navigate("/login")}>
+          <button
+            className="text-blue-600 underline"
+            onClick={() => navigate("/login")}
+          >
             Login
           </button>
         </p>
