@@ -1,35 +1,78 @@
 import redis from '../config/redis';
 import Transaction from '../models/Transaction';
 
+// Cache utility functions
+const cacheUtils = {
+  getFromCache: async (key: string) => {
+    const data = await redis.get(key);
+    return data ? JSON.parse(data) : null;
+  },
+  
+  setCache: (key: string, data: any, expiry = 3600) => {
+    return redis.setex(key, expiry, JSON.stringify(data));
+  },
+  
+  invalidateCache: (key: string) => {
+    return redis.del(key);
+  }
+};
+
 const resolvers = {
   Query: {
     getTransactions: async (_, __, { userId }) => {
+      if (!userId) throw new Error('Authentication required');
+      
       const cacheKey = `transactions:${userId}`;
-      const cachedTransactions = await redis.get(cacheKey);
+      
+      // Try to get from cache first
+      const cachedTransactions = await cacheUtils.getFromCache(cacheKey);
       if (cachedTransactions) {
-        return JSON.parse(cachedTransactions);
+        return cachedTransactions;
       }
-
-      const transactions = await Transaction.find({ userId });
-      redis.setex(cacheKey, 3600, JSON.stringify(transactions));
-      return transactions;
+      
+      // Get from database and cache the result
+      try {
+        const transactions = await Transaction.find({ userId });
+        await cacheUtils.setCache(cacheKey, transactions);
+        return transactions;
+      } catch (error) {
+        console.error('Error fetching transactions:', error);
+        throw new Error('Failed to fetch transactions');
+      }
     },
   },
 
   Mutation: {
     addTransaction: async (_, { type, description, amount }, { userId }) => {
-      const transaction = new Transaction({ userId, type, description, amount });
-      await transaction.save();
-
-      redis.del(`transactions:${userId}`); // Clear cache
-      return transaction;
+      if (!userId) throw new Error('Authentication required');
+      
+      try {
+        const transaction = new Transaction({ userId, type, description, amount });
+        await transaction.save();
+        
+        // Invalidate cache
+        await cacheUtils.invalidateCache(`transactions:${userId}`);
+        return transaction;
+      } catch (error) {
+        console.error('Error adding transaction:', error);
+        throw new Error('Failed to add transaction');
+      }
     },
 
     deleteTransaction: async (_, { id }, { userId }) => {
-      await Transaction.findOneAndDelete({ _id: id, userId });
-
-      redis.del(`transactions:${userId}`); // Clear cache
-      return "Transaction deleted";
+      if (!userId) throw new Error('Authentication required');
+      
+      try {
+        const result = await Transaction.findOneAndDelete({ _id: id, userId });
+        if (!result) throw new Error('Transaction not found');
+        
+        // Invalidate cache
+        await cacheUtils.invalidateCache(`transactions:${userId}`);
+        return "Transaction deleted";
+      } catch (error) {
+        console.error('Error deleting transaction:', error);
+        throw new Error('Failed to delete transaction');
+      }
     },
   },
 };
