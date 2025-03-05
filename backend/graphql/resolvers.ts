@@ -17,9 +17,33 @@ const cacheUtils = {
   }
 };
 
+// Define interfaces for the types
+interface TransactionInput {
+  type: string;
+  description: string;
+  amount: number;
+}
+
+interface TransactionDeleteInput {
+  id: string;
+}
+
+interface ResolverContext {
+  userId?: string;
+}
+
+interface TransactionDocument {
+  userId: string;
+  type: string;
+  description: string;
+  amount: number;
+  _id?: any; // Changed from string to any to accommodate MongoDB's ObjectId
+  __v?: number; // Added __v for version key that MongoDB adds
+}
+
 const resolvers = {
   Query: {
-    getTransactions: async (_, __, { userId }) => {
+    getTransactions: async (_: unknown, __: unknown, { userId }: ResolverContext): Promise<TransactionDocument[]> => {
       if (!userId) throw new Error('Authentication required');
       
       const cacheKey = `transactions:${userId}`;
@@ -43,7 +67,7 @@ const resolvers = {
   },
 
   Mutation: {
-    addTransaction: async (_, { type, description, amount }, { userId }) => {
+    addTransaction: async (_: unknown, { type, description, amount }: TransactionInput, { userId }: ResolverContext): Promise<TransactionDocument> => {
       if (!userId) throw new Error('Authentication required');
       
       try {
@@ -59,7 +83,7 @@ const resolvers = {
       }
     },
 
-    deleteTransaction: async (_, { id }, { userId }) => {
+    deleteTransaction: async (_: unknown, { id }: TransactionDeleteInput, { userId }: ResolverContext): Promise<string> => {
       if (!userId) throw new Error('Authentication required');
       
       try {

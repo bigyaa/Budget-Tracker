@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-express';
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { Application } from 'express';
 
 import connectDB from './config/db';
 import admin from './config/firebaseAdmin';
@@ -10,11 +10,11 @@ import typeDefs from './graphql/schema';
 // Load environment variables first
 dotenv.config();
 
-const app = express();
+const app: Application = express();
 const PORT = process.env.PORT || 4000;
 
 // Authentication middleware
-const getAuthenticatedUser = async (token) => {
+const getAuthenticatedUser = async (token: string) => {
   if (!token) throw new Error("Authentication token required");
   
   try {
@@ -43,7 +43,7 @@ async function startServer() {
     
     // Start Apollo Server
     await server.start();
-    server.applyMiddleware({ app });
+    server.applyMiddleware({ app: app as any });
     
     // Start Express server
     app.listen(PORT, () => {
