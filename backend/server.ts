@@ -1,3 +1,5 @@
+// server.ts is the entry point of the server application. It connects to the database, initializes the Apollo Server, and starts the Express server.
+
 import { ApolloServer } from 'apollo-server-express';
 import dotenv from 'dotenv';
 import express from 'express';
