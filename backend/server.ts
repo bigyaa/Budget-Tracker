@@ -15,19 +15,40 @@ import typeDefs from './graphql/schema';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const SERVER_PORT = process.env.PORT || 4000;
 
 // Add essential Express middleware
 app.use(cors());
 app.use(express.json());
 
 // Authentication middleware
+const tokenCache: { [key: string]: { userId: string, timestamp: number } } = {};
+const TOKEN_EXPIRATION_TIME = 60 * 60 * 1000; // 1 hour
+
+const clearExpiredTokens = () => {
+  const now = Date.now();
+  for (const token in tokenCache) {
+    if (now - tokenCache[token].timestamp > TOKEN_EXPIRATION_TIME) {
+      delete tokenCache[token];
+    }
+  }
+};
+
+// Clear expired tokens every hour
+setInterval(clearExpiredTokens, TOKEN_EXPIRATION_TIME);
+
 const getAuthenticatedUser = async (token: string) => {
   if (!token) return null;
-  
+
+  if (tokenCache[token]) {
+    return tokenCache[token];
+  }
+
   try {
     const decodedToken = await admin.auth().verifyIdToken(token);
-    return { userId: decodedToken.uid };
+    const user = { userId: decodedToken.uid, timestamp: Date.now() };
+    tokenCache[token] = user;
+    return user;
   } catch (error) {
     console.error('Authentication error:', error);
     return null;
@@ -65,8 +86,8 @@ async function startServer() {
     const httpServer = http.createServer(app);
     
     // Start Express server
-    httpServer.listen(PORT, () => {
-      console.log(`Server running at http://localhost:${PORT}${server.graphqlPath}`);
+    httpServer.listen(SERVER_PORT, () => {
+          console.log(`Server running at http://localhost:${SERVER_PORT}${server.graphqlPath}`);
     });
   } catch (error) {
     console.error('Server startup failed:', error);
