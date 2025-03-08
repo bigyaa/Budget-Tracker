@@ -26,7 +26,7 @@ dist-ssr
 firebaseConfig.ts
 *Config.ts
 *config.ts
-*config
+backend/config/firebaseServiceAccountKey.json
 
 .env
 *env
