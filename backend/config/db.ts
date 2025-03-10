@@ -4,8 +4,12 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const MONGODB_URI: string = process.env.MONGODB_URI || '';
+const MONGODB_URI = process.env.MONGODB_URI;
 
+if (!MONGODB_URI) {
+  throw new Error('MONGODB_URI environment variable is not set');
+}
+    
 const connectDB = async () => {
   try {
     await mongoose.connect(MONGODB_URI);
