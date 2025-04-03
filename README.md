@@ -63,12 +63,17 @@ budget-tracker/
 ```sh
 git clone https://github.com/bigyaa/Budget-Tracker.git
 cd Budget-Tracker
+npm run dev # Runs both frontend and backend
 ```
+If you want to run them separately, follow the steps below.
+
 ### **2️⃣ Backend Setup**
 ```sh
 cd backend
 npm install
 cp .env.example .env   # Add MongoDB & Firebase credentials
+redis-server # Start Redis server to cache data
+npm run build  # Build the backend
 npm run dev  # Start the backend server
 ```
 ### **3️⃣ Frontend Setup**

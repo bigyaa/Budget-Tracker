@@ -99,6 +99,8 @@ const resolvers = {
         
         // Invalidate cache
         await cacheUtils.invalidateCache(`transactions:${userId}`);
+        
+        return id; // Return the ID of the deleted transaction
       } catch (error) {
         console.error('Error deleting transaction:', error);
         throw new Error('Failed to delete transaction');
